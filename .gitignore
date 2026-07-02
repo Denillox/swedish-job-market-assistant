@@ -9,7 +9,7 @@ data/processed/
 data/exports/
 
 embeddings/chroma/
-
+embeddings/*
 .ipynb_checkpoints/
 
 venv/

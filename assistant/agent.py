@@ -11,6 +11,7 @@ from assistant.tools import (
     get_top_locations_tool,
     get_workplace_type_distribution_tool,
     get_experience_distribution_tool,
+    retrieve_market_context_tool,
 )
 
 load_dotenv()
@@ -26,6 +27,7 @@ tools = [
     get_top_locations_tool,
     get_workplace_type_distribution_tool,
     get_experience_distribution_tool,
+    retrieve_market_context_tool,
 ]
 
 agent = create_agent(

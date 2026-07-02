@@ -2,6 +2,7 @@
 import pandas as pd
 from pathlib import Path
 from langchain_core.tools import tool
+from assistant.retriever import retrieve_context
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data" / "exports"
 
@@ -257,3 +258,29 @@ def get_experience_distribution_tool(role: str = None, region: str = None) -> st
         region: Filter to jobs in this region (case-insensitive). e.g. "Stockholms län"
     """
     return get_experience_distribution(role=role, region=region)
+
+
+@tool
+def retrieve_market_context_tool(query: str) -> str:
+    """
+    Retrieve explanatory context about the dataset's methodology, limitations,
+    and general market observations for the Swedish AI/Data job market.
+
+    Use this when the user asks open-ended, explanatory, or "why/how" questions
+    that a structured lookup can't answer directly, for example:
+    - "What does the not_specified workplace type actually mean?"
+    - "How was this data collected?"
+    - "What are the overall trends in the Swedish AI/Data job market?"
+    - "Why might employer counts be misleading?"
+
+    Do NOT use this tool for questions asking for specific rankings, counts, or
+    breakdowns (e.g. top skills, top employers, top locations, experience
+    distribution, workplace type distribution) — those are better answered by
+    the dedicated data tools, which query the actual dataset directly rather
+    than a general notes document.
+
+    Args:
+        query: The user's open-ended question, passed through to a similarity
+            search over the project's methodology and market notes.
+    """
+    return retrieve_context(query)
