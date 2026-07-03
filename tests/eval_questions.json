@@ -1,0 +1,74 @@
+[
+    {
+      "question": "What are the top skills for data engineer roles?",
+      "category": "structured_tool",
+      "expected_tool": "get_top_skills_tool",
+      "notes": "Should mention SQL, Python, Azure, AWS near the top based on current dataset"
+    },
+    {
+      "question": "Which employers in Stockholm mention Python most often?",
+      "category": "structured_tool",
+      "expected_tool": "get_top_employers_tool",
+      "notes": "Should filter by skill=python and region=Stockholm, return a ranked employer list"
+    },
+    {
+      "question": "Where are most AI/Data job postings located in Sweden?",
+      "category": "structured_tool",
+      "expected_tool": "get_top_locations_tool",
+      "notes": "Should surface Stockholm as the top region/municipality, with Gothenburg, Malmö, Lund also appearing"
+    },
+    {
+      "question": "How common is remote work in the Swedish AI/Data job market?",
+      "category": "structured_tool",
+      "expected_tool": "get_workplace_type_distribution_tool",
+      "notes": "Should give the not_specified/hybrid/remote breakdown with counts or percentages"
+    },
+    {
+      "question": "What experience level is typical for machine learning roles?",
+      "category": "structured_tool",
+      "expected_tool": "get_experience_distribution_tool",
+      "notes": "Should mention the distribution AND explicitly flag how many postings had no stated requirement"
+    },
+    {
+      "question": "What does the not_specified workplace type actually mean?",
+      "category": "rag",
+      "expected_tool": "retrieve_market_context_tool",
+      "notes": "Should explain it means no remote/hybrid keyword detected, and clarify it does not mean fully on-site"
+    },
+    {
+      "question": "How was this dataset collected?",
+      "category": "rag",
+      "expected_tool": "retrieve_market_context_tool",
+      "notes": "Should mention the JobTech API and predefined search terms, and that it's a snapshot not real-time"
+    },
+    {
+      "question": "What are the limitations of the skill detection in this dataset?",
+      "category": "rag",
+      "expected_tool": "retrieve_market_context_tool",
+      "notes": "Should mention keyword/regex-based detection, and that it captures mentions, not perfect classification"
+    },
+    {
+      "question": "Tell me about remote work trends in this market.",
+      "category": "multi_tool",
+      "expected_tool": "get_workplace_type_distribution_tool + retrieve_market_context_tool",
+      "notes": "Ambiguous phrasing — good answer combines the actual distribution numbers with market commentary/context"
+    },
+    {
+      "question": "What skills are in demand and why might that be?",
+      "category": "multi_tool",
+      "expected_tool": "get_top_skills_tool + retrieve_market_context_tool",
+      "notes": "Should combine structured skill ranking with interpretive commentary, not just one or the other"
+    },
+    {
+      "question": "What are the top skills for blockchain developer roles?",
+      "category": "edge_case",
+      "expected_tool": "get_top_skills_tool",
+      "notes": "Role likely doesn't exist in the dataset (AI/Data focused) — should gracefully report no/few results rather than hallucinating data"
+    },
+    {
+      "question": "What's the most common years-of-experience requirement for roles in Norrbottens län?",
+      "category": "edge_case",
+      "expected_tool": "get_experience_distribution_tool",
+      "notes": "Likely sparse/no data for this region — tests graceful handling of empty or near-empty results"
+    }
+  ]
