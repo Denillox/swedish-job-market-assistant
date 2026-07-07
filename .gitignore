@@ -16,3 +16,4 @@ venv/
 .venv/
 
 .DS_Store
+tests/eval_status.json
