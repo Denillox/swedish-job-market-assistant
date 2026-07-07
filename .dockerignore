@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+data/raw/
+data/processed/
+
+embeddings/chroma/
+embeddings/*
+.ipynb_checkpoints/
+
+venv/
+.venv/
