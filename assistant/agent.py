@@ -2,6 +2,7 @@
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai.chat_models import ChatGoogleGenerativeAIError
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from google.genai.errors import ServerError, ClientError
 
@@ -37,7 +38,7 @@ agent = create_agent(
 )
 
 @retry(
-    retry=retry_if_exception_type((ServerError, ClientError)),
+    retry=retry_if_exception_type((ServerError, ClientError, ChatGoogleGenerativeAIError)),
     wait=wait_exponential(multiplier=1, min=2, max=30),
     stop=stop_after_attempt(4),
     reraise=True,
